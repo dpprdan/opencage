@@ -3,6 +3,8 @@
 \name{oc_forward}
 \alias{oc_forward}
 \alias{oc_forward_df}
+\alias{oc_forward_df.data.frame}
+\alias{oc_forward_df.character}
 \title{Forward geocoding}
 \usage{
 oc_forward(placename, return = c("df_list", "json_list", "geojson_list",
@@ -11,8 +13,16 @@ oc_forward(placename, return = c("df_list", "json_list", "geojson_list",
   no_annotations = TRUE, no_dedupe = FALSE, no_record = FALSE,
   abbrv = FALSE, add_request = FALSE, ...)
 
-oc_forward_df(data, placename, bind_cols = TRUE, output = c("short",
-  "all"), key = oc_key(), bounds = NULL, countrycode = NULL,
+oc_forward_df(...)
+
+\method{oc_forward_df}{data.frame}(data, placename, bind_cols = TRUE,
+  output = c("short", "all"), key = oc_key(), bounds = NULL,
+  countrycode = NULL, language = NULL, limit = 1L,
+  min_confidence = NULL, no_annotations = TRUE, no_dedupe = FALSE,
+  no_record = FALSE, abbrv = FALSE, ...)
+
+\method{oc_forward_df}{character}(placename, output = c("short", "all"),
+  key = oc_key(), bounds = NULL, countrycode = NULL,
   language = NULL, limit = 1L, min_confidence = NULL,
   no_annotations = TRUE, no_dedupe = FALSE, no_record = FALSE,
   abbrv = FALSE, ...)

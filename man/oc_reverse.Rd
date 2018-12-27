@@ -3,6 +3,8 @@
 \name{oc_reverse}
 \alias{oc_reverse}
 \alias{oc_reverse_df}
+\alias{oc_reverse_df.data.frame}
+\alias{oc_reverse_df.numeric}
 \title{Reverse geocoding}
 \usage{
 oc_reverse(latitude, longitude, return = c("df_list", "json_list",
@@ -10,10 +12,18 @@ oc_reverse(latitude, longitude, return = c("df_list", "json_list",
   min_confidence = NULL, no_annotations = TRUE, no_dedupe = FALSE,
   no_record = FALSE, abbrv = FALSE, add_request = FALSE, ...)
 
-oc_reverse_df(data, latitude, longitude, bind_cols = TRUE,
-  output = c("short", "all"), key = oc_key(), language = NULL,
-  min_confidence = NULL, no_annotations = TRUE, no_dedupe = FALSE,
-  no_record = FALSE, abbrv = FALSE, ...)
+oc_reverse_df(...)
+
+\method{oc_reverse_df}{data.frame}(data, latitude, longitude,
+  bind_cols = TRUE, output = c("short", "all"), key = oc_key(),
+  language = NULL, min_confidence = NULL, no_annotations = TRUE,
+  no_dedupe = FALSE, no_record = FALSE, abbrv = FALSE, ...)
+
+\method{oc_reverse_df}{numeric}(latitude, longitude, output = c("short",
+  "all"), key = oc_key(), language = NULL, min_confidence = NULL,
+  no_annotations = TRUE, no_dedupe = FALSE, no_record = FALSE,
+  abbrv = FALSE, ...)
+
 }
 \arguments{
 \item{latitude}{A numeric vector with the latitude. Required.}

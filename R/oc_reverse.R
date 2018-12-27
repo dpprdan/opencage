@@ -95,7 +95,11 @@ oc_reverse <-
 #' except \code{key}, \code{return}, and \code{no_record}.
 #'
 #' @export
-oc_reverse_df <-
+oc_reverse_df <- function(...) UseMethod("oc_reverse_df")
+
+#' @rdname oc_reverse
+#' @export
+oc_reverse_df.data.frame <-
   function(data,
            latitude,
            longitude,
@@ -226,3 +230,35 @@ oc_reverse_df <-
     }
     results
   }
+
+#' @rdname oc_reverse
+#' @export
+oc_reverse_df.numeric <-
+  function(latitude,
+           longitude,
+           output = c("short", "all"),
+           key = oc_key(),
+           language = NULL,
+           min_confidence = NULL,
+           no_annotations = TRUE,
+           no_dedupe = FALSE,
+           no_record = FALSE,
+           abbrv = FALSE,
+           ...) {
+    xdf <- tibble::tibble(latitude = latitude, longitude = longitude)
+    oc_reverse_df(
+      data = xdf,
+      latitude = latitude,
+      longitude = longitude,
+      bind_cols = TRUE,
+      output = output,
+      key = key,
+      language = language,
+      min_confidence = min_confidence,
+      no_annotations = no_annotations,
+      no_dedupe = no_dedupe,
+      no_record = no_record,
+      abbrv = abbrv
+    )
+  }
+

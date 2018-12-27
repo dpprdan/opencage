@@ -152,7 +152,11 @@ oc_forward <-
 #' except \code{key}, \code{return}, and \code{no_record}.
 #'
 #' @export
-oc_forward_df <-
+oc_forward_df <- function(...) UseMethod("oc_forward_df")
+
+#' @rdname oc_forward
+#' @export
+oc_forward_df.data.frame <-
   function(data,
            placename,
            bind_cols = TRUE,
@@ -326,3 +330,39 @@ oc_forward_df <-
     }
     results
   }
+
+#' @rdname oc_forward
+#' @export
+oc_forward_df.character <-
+  function(placename,
+           output = c("short", "all"),
+           key = oc_key(),
+           bounds = NULL,
+           countrycode = NULL,
+           language = NULL,
+           limit = 1L,
+           min_confidence = NULL,
+           no_annotations = TRUE,
+           no_dedupe = FALSE,
+           no_record = FALSE,
+           abbrv = FALSE,
+           ...) {
+    xdf <- tibble::tibble(placename = placename)
+    oc_forward_df(
+      data = xdf,
+      placename = placename,
+      bind_cols = TRUE,
+      output = output,
+      key = key,
+      bounds = bounds,
+      countrycode = countrycode,
+      language = language,
+      limit = limit,
+      min_confidence = min_confidence,
+      no_annotations = no_annotations,
+      no_dedupe = no_dedupe,
+      no_record = no_record,
+      abbrv = abbrv
+    )
+  }
+
