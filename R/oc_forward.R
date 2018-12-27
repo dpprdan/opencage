@@ -366,3 +366,97 @@ oc_forward_df.character <-
     )
   }
 
+#' @rdname oc_forward
+#' @export
+oc_forward_sf <- function(...) UseMethod("oc_forward_sf")
+
+#' @rdname oc_forward
+#' @export
+oc_forward_sf.data.frame <-
+  function(data,
+           placename,
+           bind_cols = TRUE,
+           output = c("short", "all"),
+           key = oc_key(),
+           bounds = NULL,
+           countrycode = NULL,
+           language = NULL,
+           limit = 1L,
+           min_confidence = NULL,
+           no_annotations = TRUE,
+           no_dedupe = FALSE,
+           no_record = FALSE,
+           abbrv = FALSE,
+           ...) {
+    if (!requireNamespace("sf", quietly = TRUE))
+      stop("Package sf is required but not installed.") # nocov
+    placename <- substitute(placename)
+
+    xdf <- oc_forward_df(
+      data = data,
+      placename = placename,
+      bind_cols = bind_cols,
+      output = output,
+      key = key,
+      bounds = bounds,
+      countrycode = countrycode,
+      language = language,
+      limit = limit,
+      min_confidence = min_confidence,
+      no_annotations = no_annotations,
+      no_dedupe = no_dedupe,
+      no_record = no_record,
+      abbrv = abbrv
+    )
+    sf::st_as_sf(
+      xdf,
+      agr = "constant",
+      coords = c("lng", "lat"),
+      crs = 4326,
+      na.fail = FALSE
+    )
+  }
+
+#' @rdname oc_forward
+#' @export
+oc_forward_sf.character <-
+  function(placename,
+           bind_cols = TRUE,
+           output = c("short", "all"),
+           key = oc_key(),
+           bounds = NULL,
+           countrycode = NULL,
+           language = NULL,
+           limit = 1L,
+           min_confidence = NULL,
+           no_annotations = TRUE,
+           no_dedupe = FALSE,
+           no_record = FALSE,
+           abbrv = FALSE,
+           ...) {
+    if (!requireNamespace("sf", quietly = TRUE))
+      stop("Package sf is required but not installed.") # nocov
+
+    xdf <- oc_forward_df(
+      placename = placename,
+      bind_cols = bind_cols,
+      output = output,
+      key = key,
+      bounds = bounds,
+      countrycode = countrycode,
+      language = language,
+      limit = limit,
+      min_confidence = min_confidence,
+      no_annotations = no_annotations,
+      no_dedupe = no_dedupe,
+      no_record = no_record,
+      abbrv = abbrv
+    )
+    sf::st_as_sf(
+      xdf,
+      agr = "constant",
+      coords = c("lng", "lat"),
+      crs = 4326,
+      na.fail = FALSE
+    )
+  }

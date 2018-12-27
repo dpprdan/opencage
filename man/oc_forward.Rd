@@ -5,6 +5,9 @@
 \alias{oc_forward_df}
 \alias{oc_forward_df.data.frame}
 \alias{oc_forward_df.character}
+\alias{oc_forward_sf}
+\alias{oc_forward_sf.data.frame}
+\alias{oc_forward_sf.character}
 \title{Forward geocoding}
 \usage{
 oc_forward(placename, return = c("df_list", "json_list", "geojson_list",
@@ -26,6 +29,20 @@ oc_forward_df(...)
   language = NULL, limit = 1L, min_confidence = NULL,
   no_annotations = TRUE, no_dedupe = FALSE, no_record = FALSE,
   abbrv = FALSE, ...)
+
+oc_forward_sf(...)
+
+\method{oc_forward_sf}{data.frame}(data, placename, bind_cols = TRUE,
+  output = c("short", "all"), key = oc_key(), bounds = NULL,
+  countrycode = NULL, language = NULL, limit = 1L,
+  min_confidence = NULL, no_annotations = TRUE, no_dedupe = FALSE,
+  no_record = FALSE, abbrv = FALSE, ...)
+
+\method{oc_forward_sf}{character}(placename, bind_cols = TRUE,
+  output = c("short", "all"), key = oc_key(), bounds = NULL,
+  countrycode = NULL, language = NULL, limit = 1L,
+  min_confidence = NULL, no_annotations = TRUE, no_dedupe = FALSE,
+  no_record = FALSE, abbrv = FALSE, ...)
 }
 \arguments{
 \item{placename}{A character vector with the placename(s) to be geocoded.

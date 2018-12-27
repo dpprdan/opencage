@@ -262,3 +262,85 @@ oc_reverse_df.numeric <-
     )
   }
 
+#' @rdname oc_reverse
+#' @export
+oc_reverse_sf <- function(...) UseMethod("oc_reverse_sf")
+
+#' @rdname oc_reverse
+#' @export
+oc_reverse_sf.data.frame <-
+  function(data,
+           latitude,
+           longitude,
+           bind_cols = TRUE,
+           output = c("short", "all"),
+           key = oc_key(),
+           language = NULL,
+           min_confidence = NULL,
+           no_annotations = TRUE,
+           no_dedupe = FALSE,
+           no_record = FALSE,
+           abbrv = FALSE,
+           ...) {
+    if (!requireNamespace("sf", quietly = TRUE))
+      stop("Package sf is required but not installed.") # nocov
+    xdf <- oc_reverse_df(
+      data = data,
+      latitude = latitude,
+      longitude = longitude,
+      bind_cols = bind_cols,
+      output = output,
+      key = key,
+      language = language,
+      min_confidence = min_confidence,
+      no_annotations = no_annotations,
+      no_dedupe = no_dedupe,
+      no_record = no_record,
+      abbrv = abbrv
+    )
+    sf::st_as_sf(
+      xdf,
+      agr = "constant",
+      coords = c("longitude", "latitude"),
+      crs = 4326,
+      na.fail = FALSE
+    )
+  }
+
+#' @rdname oc_reverse
+#' @export
+oc_reverse_sf.numeric <-
+  function(latitude,
+           longitude,
+           output = c("short", "all"),
+           key = oc_key(),
+           language = NULL,
+           min_confidence = NULL,
+           no_annotations = TRUE,
+           no_dedupe = FALSE,
+           no_record = FALSE,
+           abbrv = FALSE,
+           ...) {
+    if (!requireNamespace("sf", quietly = TRUE))
+      stop("Package sf is required but not installed.") # nocov
+
+    xdf <- oc_reverse_df(
+      latitude = latitude,
+      longitude = longitude,
+      output = output,
+      key = key,
+      language = language,
+      min_confidence = min_confidence,
+      no_annotations = no_annotations,
+      no_dedupe = no_dedupe,
+      no_record = no_record,
+      abbrv = abbrv
+    )
+    sf::st_as_sf(
+      xdf,
+      agr = "constant",
+      coords = c("longitude", "latitude"),
+      crs = 4326,
+      na.fail = FALSE
+    )
+  }

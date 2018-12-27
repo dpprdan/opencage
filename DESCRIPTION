@@ -29,6 +29,7 @@ Suggests:
     knitr (>= 1.19),
     lintr (>= 1.0.2),
     rmarkdown (>= 1.8),
+    sf (>= 0.7-0),
     testthat (>= 2.0.0)
 VignetteBuilder: knitr
 Encoding: UTF-8
